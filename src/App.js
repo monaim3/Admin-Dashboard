@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { ToastContainer} from 'react-toastify';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Component/Routes/Routes';
+import 'react-toastify/dist/ReactToastify.css';
+import { createContext, useState } from 'react';
 
+export const darkContext=createContext()
 function App() {
+  const [dark,setDark]=useState(false)
+   const themStyle={
+     backgroundColor:dark ? 'black':'white',
+     color:dark ? 'white' : 'black'
+   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <> 
+   <div style={themStyle}>
+   <ToastContainer position='top-center'></ToastContainer>
+       <darkContext.Provider value={[dark,setDark]}>
+       <RouterProvider router={router}/>
+       </darkContext.Provider>
+   </div>
+         
+    </>
   );
 }
 
